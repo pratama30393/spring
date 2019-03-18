@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="topmenu::topmenu"></div>
+
+<div class="page-content" style="min-height:500px;">
+    <div class="row">
+        <div th:replace="leftmenu::leftmenu"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="content-box-header">
+                                <div class="panel-title">Transaksi</div>
+                                <div class="panel-options">
+                                    <a href="/transaksi" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                                </div><br>
+                                <div class="panel-title">
+                                    <form id="searchForm" action="/search" method="post">
+                                        AccountId: <input type="number" class="text-input" id="aId" name="aId"/>
+                                        Start: <input type="date" class="date-cell" id="startDate" name="startDate"/>
+                                        End: <input type="date" class="date-cell" id="endDate" name="endDate"/>
+
+                                        <button type="submit" >Search <i class="glyphicon glyphicon-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="content-box-large box-with-header">
+                                <table class="table table-bordered">
+                                    <thead>
+                                   <!-- <th>id</th>-->
+                                    <th>Account Id</th>
+                                    <th>transaction date</th>
+                                    <th>description</th>
+                                    <th>debit credit </th>
+                                    <th>amount</th>
+                                    </thead>
+                                    <tbody th:if="${transaksi}">
+                                    <th:block th:each="t : ${transaksi}">
+                                        <tr>
+                                            <!--<td th:text="${t.id}"></td>-->
+                                            <td th:text="${t.accountId}"></td>
+                                            <td th:text="${t.transactionDate}"></td>
+                                            <td th:text="${t.description}"></td>
+                                            <td th:text="${t.debitCreditStatus}"></td>
+                                            <td th:text="${t.amount}"></td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+
+                                <div class="row" th:fragment="pagination">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <nav aria-label="Pagination">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                                                    <a class="page-link active" th:href="@{|/transaksi/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="content-box-header">
+                                <div class="panel-title">Create new</div>
+                            </div>
+                            <span th:if="${ERROR}">Error Please Check Data</span>
+                            <div class="content-box-large box-with-header">
+                                <form action="#" th:action="@{/transaksi}" th:object="${transaksi}" method="post">
+                                    <input type="hidden" name="id" id="id"/><br>
+                                    <label>Account Id</label>
+                                    <input class="text-input" style="margin-left: 50px" type="text" id="accountId" name="accountId" required th:value="${accountId}"/><br>
+                                    <label>Description</label>
+                                    <input class="text-input" style="margin-left: 45px"  type="text" id="description" name="description" required th:value="${description}"/><br>
+                                    <label>Debit Credit</label>
+                                    <select class="form-select-button"  style="margin-left: 43px" id="debitCreditStatus" name="debitCreditStatus" required th:value="${debitCreditStatus}">
+                                        <option class="panel-options" value="D">Debit</option>
+                                        <option class="panel-options" value="C">Credit</option>
+                                    </select><br>
+                                    <label>Amount</label>
+                                    <input class="text-input" style="margin-left: 66px"  type="text" id="amount" name="amount" required th:value="${amount}"/><br>
+                                    <input type="submit"  class="btn btn-default" value="Save" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- these are some common code which we use in each and every file so separated with saprate
+file in using -->
+</html>

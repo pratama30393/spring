@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="topmenu::topmenu"></div>
+
+<div class="page-content" style="min-height:500px;">
+    <div class="row">
+        <div th:replace="leftmenu::leftmenu"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="content-box-header">
+                                <div class="panel-title">Point</div>
+
+                                <div class="panel-options">
+                                    <a href="/point" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                                </div>
+                            </div>
+                            <div class="content-box-large box-with-header">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th>Account Id</th>
+                                    <th>Name</th>
+                                    <th>Total Point</th>
+                                    </thead>
+                                    <tbody th:if="${point}">
+                                    <th:block th:each="p : ${point}">
+                                        <tr>
+                                            <td th:text="${p.getAccountId()}"></td>
+                                            <td th:text="${p.getAccountName()}"></td>
+                                            <td th:text="${p.getTotalPoint()}"></td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- these are some common code which we use in each and every file so separated with saprate
+file in using -->
+</html>
